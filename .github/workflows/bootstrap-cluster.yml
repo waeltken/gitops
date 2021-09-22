@@ -46,7 +46,6 @@ jobs:
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - run: az aks wait --exists -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
       - name: Get Kubernetes credentials
         run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
       - run: kubectl get nodes
