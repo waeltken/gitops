@@ -15,6 +15,7 @@ jobs:
     strategy:
       matrix:
         stage: [dev, staging]
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
 
@@ -45,6 +46,7 @@ jobs:
     strategy:
       matrix:
         stage: [dev, staging]
+      fail-fast: false
     steps:
       - name: Azure Login
         uses: Azure/login@v1
