@@ -21,9 +21,6 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
         mode: 'System'
       }
     ]
-    aadProfile: {
-      managed: false
-    }
     podIdentityProfile: {
       enabled: true
     }
