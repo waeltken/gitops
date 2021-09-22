@@ -37,4 +37,7 @@ jobs:
           parameters: >
             clusterName=${{ env.CLUSTER_NAME }}
 
-      - run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
+      - name: Get Kubernetes credentials
+        run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
+      - name: Install flux
+        run: curl -s https://fluxcd.io/install.sh | sudo bash
