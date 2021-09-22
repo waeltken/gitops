@@ -57,7 +57,7 @@ jobs:
         run: > 
              flux bootstrap github
                --owner=${{ github.repository_owner }}
-               --repository=${{ github.repository.name }}
+               --repository=gitops
                --branch=main
                --path=./clusters/${{ env.CLUSTER_NAME }}
                --read-write-key
