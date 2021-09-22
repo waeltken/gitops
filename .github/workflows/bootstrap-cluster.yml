@@ -1,17 +1,41 @@
 name: Bootstrap development cluster
+
 on:
   push:
 
+env:
+  # Change this if more then one user is deploying to
+  # the same subscription
+  RESOURCE_GROUP_NAME: gitops-action-bicep-rg
+  RESOURCE_GROUP_LOCATION: westeurope
+  CLUSTER_NAME: dev
+
 jobs:
-  login:
+  deploy-infra:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Display Azure account info
-        run: az account show -o yaml
+      - name: Create Resource Group
+        run: >
+          az group create
+          -l ${{ env.RESOURCE_GROUP_LOCATION }}
+          -n ${{ env.RESOURCE_GROUP_NAME }}
 
+      - name: Deploy Bicep template
+        uses: azure/arm-deploy@v1
+        id: infra
+        with:
+          resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
+          template: ./infra.bicep
+          # Here we pass the template parameters to the deployment
+          parameters: >
+            clusterName=${{ env.CLUSTER_NAME }}
+
+      - name: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
