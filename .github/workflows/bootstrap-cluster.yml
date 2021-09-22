@@ -1,0 +1,17 @@
+name: Bootstrap development cluster
+on:
+  push:
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Display Azure account info
+        run: az account show -o yaml
+
