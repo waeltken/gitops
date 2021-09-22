@@ -8,7 +8,7 @@ env:
   # the same subscription
   RESOURCE_GROUP_NAME: gitops-bootstrap-rg
   RESOURCE_GROUP_LOCATION: westeurope
-  CLUSTER_NAME: dev
+  CLUSTER_NAME: staging
 
 jobs:
   deploy-cluster:
@@ -52,7 +52,7 @@ jobs:
         run: curl -s https://fluxcd.io/install.sh | sudo bash
       - run: flux check --pre
       - env:
-          GITHUB_TOKEN: ${{ secrets.PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: flux bootstrap github
                 --owner=${{ github.repository_owner }}
                 --repository=gitops
