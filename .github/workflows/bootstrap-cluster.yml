@@ -12,7 +12,7 @@ env:
 
 jobs:
   deploy-cluster:
-    if: false
+    if: true
     runs-on: ubuntu-latest
 
     steps:
