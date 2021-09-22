@@ -2,6 +2,8 @@ name: Bootstrap development cluster
 
 on:
   push:
+    paths-ignore:
+      - clusters/**
 
 env:
   # Change this if more then one user is deploying to
