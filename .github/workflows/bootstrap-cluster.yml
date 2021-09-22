@@ -38,4 +38,4 @@ jobs:
           parameters: >
             clusterName=${{ env.CLUSTER_NAME }}
 
-      - name: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
+      - run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
