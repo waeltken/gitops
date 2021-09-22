@@ -12,7 +12,7 @@ env:
 
 jobs:
   deploy-cluster:
-    if: false
+    if: true
     runs-on: ubuntu-latest
 
     steps:
@@ -39,12 +39,14 @@ jobs:
             clusterName=${{ env.CLUSTER_NAME }}
             
   deploy-flux:
+    needs: []
     runs-on: ubuntu-latest
     steps:
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - run: az aks wait --exists -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
       - name: Get Kubernetes credentials
         run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
       - run: kubectl get nodes
