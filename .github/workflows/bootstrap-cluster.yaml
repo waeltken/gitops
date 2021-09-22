@@ -2,8 +2,9 @@ name: Bootstrap development cluster
 
 on:
   push:
-    paths-ignore:
-      - clusters/**
+    paths:
+      - .github/workflows/bootstrap-cluster.yaml
+      - cluster.bicep
 
 env:
   # Change this if more then one user is deploying to
