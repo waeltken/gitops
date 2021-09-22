@@ -6,13 +6,12 @@ on:
 env:
   # Change this if more then one user is deploying to
   # the same subscription
-  RESOURCE_GROUP_NAME: gitops-action-bicep-rg
+  RESOURCE_GROUP_NAME: gitops-bootstrap-rg
   RESOURCE_GROUP_LOCATION: westeurope
   CLUSTER_NAME: dev
 
 jobs:
   deploy-cluster:
-    if: false
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +38,7 @@ jobs:
             clusterName=${{ env.CLUSTER_NAME }}
             
   deploy-flux:
-    needs: []
+    needs: [deploy-cluster]
     runs-on: ubuntu-latest
     steps:
       - name: Azure Login
@@ -54,4 +53,10 @@ jobs:
       - run: flux check --pre
       - env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: flux bootstrap github --owner=${{ github.repository_owner }} --repository=gitops --branch=main --path=./clusters/${{ env.CLUSTER_NAME }}2 --read-write-key --personal
+        run: flux bootstrap github
+                --owner=${{ github.repository_owner }}
+                --repository=gitops
+                --branch=main
+                --path=./clusters/${{ env.CLUSTER_NAME }}2
+                --read-write-key
+                --personal
