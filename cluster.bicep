@@ -22,7 +22,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
       }
     ]
     aadProfile: {
-      managed: true
+      managed: false
     }
     podIdentityProfile: {
       enabled: true
