@@ -11,6 +11,12 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
       networkPlugin: 'azure'
       networkPolicy: 'calico'
     }
+    agentPoolProfiles: [
+      {
+        name: 'default'
+        count: 3
+      }
+    ]
     aadProfile: {
       managed: true
     }
