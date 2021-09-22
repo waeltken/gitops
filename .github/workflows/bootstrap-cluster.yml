@@ -55,7 +55,7 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         run: > 
-             flux bootstrap github
+             echo $GITHUB_TOKEN && flux bootstrap github
                --owner=${{ github.repository_owner }}
                --repository=gitops
                --branch=main
