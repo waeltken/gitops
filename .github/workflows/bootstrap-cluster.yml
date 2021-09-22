@@ -34,6 +34,7 @@ jobs:
         with:
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
           template: ./cluster.bicep
+          deploymentName: ${{ matrix.stage }}
           # Here we pass the template parameters to the deployment
           parameters: >
             clusterName=${{ matrix.stage }}
