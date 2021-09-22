@@ -8,12 +8,13 @@ env:
   # the same subscription
   RESOURCE_GROUP_NAME: gitops-bootstrap-rg
   RESOURCE_GROUP_LOCATION: westeurope
-  CLUSTER_NAME: staging
 
 jobs:
   deploy-cluster:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        stage: [dev, staging]
     steps:
       - uses: actions/checkout@v2
 
@@ -35,18 +36,21 @@ jobs:
           template: ./cluster.bicep
           # Here we pass the template parameters to the deployment
           parameters: >
-            clusterName=${{ env.CLUSTER_NAME }}
+            clusterName=${{ matrix.stage }}
             
   deploy-flux:
     needs: [deploy-cluster]
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        stage: [dev, staging]
     steps:
       - name: Azure Login
         uses: Azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Get Kubernetes credentials
-        run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
+        run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ matrix.stage }}
       - run: kubectl get nodes
       - name: Install flux
         run: curl -s https://fluxcd.io/install.sh | sudo bash
@@ -57,6 +61,6 @@ jobs:
                 --owner=${{ github.repository_owner }}
                 --repository=gitops
                 --branch=main
-                --path=./clusters/${{ env.CLUSTER_NAME }}2
+                --path=./clusters/${{ matrix.stage }}
                 --read-write-key
                 --personal
