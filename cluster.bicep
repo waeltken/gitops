@@ -8,6 +8,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
     type: 'SystemAssigned'
   }
   properties: {
+    dnsPrefix: clusterName
     networkProfile: {
       networkPlugin: 'azure'
       networkPolicy: 'calico'
