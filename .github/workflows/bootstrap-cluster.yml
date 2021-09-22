@@ -54,11 +54,4 @@ jobs:
       - run: flux check --pre
       - env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: > 
-             echo $GITHUB_TOKEN && flux bootstrap github
-               --owner=${{ github.repository_owner }}
-               --repository=gitops
-               --branch=main
-               --path=./clusters/${{ env.CLUSTER_NAME }}
-               --read-write-key
-               --personal
+        run: flux bootstrap github --owner=${{ github.repository_owner }} --repository=gitops --branch=main --path=./clusters/${{ env.CLUSTER_NAME }}2 --read-write-key --personal
