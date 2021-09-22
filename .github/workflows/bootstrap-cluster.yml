@@ -36,7 +36,14 @@ jobs:
           # Here we pass the template parameters to the deployment
           parameters: >
             clusterName=${{ env.CLUSTER_NAME }}
-
+            
+  deploy-flux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Get Kubernetes credentials
         run: az aks get-credentials -g ${{ env.RESOURCE_GROUP_NAME }} -n ${{ env.CLUSTER_NAME}}
       - name: Install flux
