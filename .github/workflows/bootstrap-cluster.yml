@@ -33,7 +33,7 @@ jobs:
         id: infra
         with:
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
-          template: ./infra.bicep
+          template: ./cluster.bicep
           # Here we pass the template parameters to the deployment
           parameters: >
             clusterName=${{ env.CLUSTER_NAME }}
