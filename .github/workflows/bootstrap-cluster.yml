@@ -59,7 +59,7 @@ jobs:
         run: curl -s https://fluxcd.io/install.sh | sudo bash
       - run: flux check --pre
       - env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         run: flux bootstrap github
                 --owner=${{ github.repository_owner }}
                 --repository=gitops
