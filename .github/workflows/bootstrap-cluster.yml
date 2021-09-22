@@ -11,7 +11,7 @@ env:
   CLUSTER_NAME: dev
 
 jobs:
-  deploy-infra:
+  deploy-cluster:
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +30,6 @@ jobs:
 
       - name: Deploy Bicep template
         uses: azure/arm-deploy@v1
-        id: infra
         with:
           resourceGroupName: ${{ env.RESOURCE_GROUP_NAME }}
           template: ./cluster.bicep
