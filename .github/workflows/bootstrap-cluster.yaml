@@ -69,5 +69,4 @@ jobs:
                 --repository=gitops
                 --branch=main
                 --path=./clusters/${{ matrix.stage }}
-                --read-write-key
                 --personal
