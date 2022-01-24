@@ -1,6 +1,7 @@
 name: Bootstrap development cluster
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - .github/workflows/bootstrap-cluster.yaml
