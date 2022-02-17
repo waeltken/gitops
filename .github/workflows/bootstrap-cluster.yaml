@@ -1,4 +1,4 @@
-name: Bootstrap development cluster
+name: Bootstrap Clusters
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        stage: [dev]
+        stage: [dev, test]
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        stage: [dev]
+        stage: [dev, test]
       fail-fast: false
     steps:
       - name: Azure Login
