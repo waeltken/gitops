@@ -1,9 +1,10 @@
 param clusterName string
 param vmSize string = 'standard_d2s_v3'
+param location string  = resourceGroup().location
 
 resource aks 'Microsoft.ContainerService/managedClusters@2021-07-01' = {
   name: clusterName
-  location: resourceGroup().location
+  location: location
   identity: {
     type: 'SystemAssigned'
   }
